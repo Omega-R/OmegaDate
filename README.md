@@ -23,6 +23,7 @@ dependencies {
 }
 ```
 # Usage
+
 How to create
 ```
 OmegaDate date = new OmegaDate(); // create with current time
@@ -31,9 +32,67 @@ OmegaDate date = new OmegaDate(); // create with current time
           date = new OmegaDate(java.util.Calendar); // create with specified calendar
 ```
 
+Or you could set time with functions:
+```
+setDate(java.util.Date);
+setDate(OmegaDate);
+setDate(java.util.Calendar);
+setDate(String date, SimpleDateFormat dateFormat);
+setDate(int dayOfMonth, int month, int year);
+setTimeOfDay(int millis, int sec, int min, int hoursOfDay);
+setTime(long time);
+```
 
+Set or add specific values.
+```
+addMillis(int millis); // add millis to date
+setMillis(long millis); // set millis to date
 
+addSeconds(int sec);
+setSeconds(int sec);
 
+addMin(int mins);
+setMin(int min);
+
+addHours(int hours);
+setHoursOfDay(int hour);
+
+addDays(int days);
+setDayOfMonth(int day);
+
+addWeeks(int hours);
+
+addMonth(int hours);
+setMonth(int hours);
+
+addYear(int hours);
+setYear(int hours);
+
+setDayOfWeek(int dayOfWeek);
+```
+
+Other interesting functions
+```
+int getAges(OmegaDate currentDate); // return ages
+boolean isAllowableAge(int minAge, int maxAge, OmegaDate currentDate);
+boolean isInRange(OmegaDate minDate, OmegaDate maxDate);
+boolean isStartOfWeek();
+boolean isEndOfWeek();
+boolean isStartOfMonth();
+boolean isEndOfMonth();
+
+long differenceBetweenDatesInMillis(OmegaDate compareDate);
+long differenceBetweenDatesInSec(OmegaDate compareDate);
+long differenceBetweenDatesInMin(OmegaDate compareDate);
+long differenceBetweenDatesInHour(OmegaDate compareDate);
+long differenceBetweenDatesInDays(OmegaDate compareDate);
+
+boolean after(OmegaDate compareDate);
+boolean before(OmegaDate compareDate);
+boolean isSameDate(OmegaDate compareDate);
+
+boolean isYesterday(OmegaDate currentDate);
+```
 
 # License
 ```
