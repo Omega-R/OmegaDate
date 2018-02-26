@@ -70,6 +70,17 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
     /**
      * Sets the date field parameters to the values given by {@code date}
      *
+     * @param date the Calendar value
+     *
+     * @return this OmegaDate
+     */
+    fun setDate(calendar: Calendar): OmegaDate {
+        return setDate(calendar.time)
+    }
+
+    /**
+     * Sets the date field parameters to the values given by {@code date}
+     *
      * @param date       the String value
      * @param dateFormat the SimpleDateFormat value
      *
@@ -532,9 +543,8 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      *
      * @return true if ages between min and max, else false
      */
-    @JvmOverloads
-    fun isInRange(minDate: OmegaDate, maxDate: OmegaDate, currentDate: OmegaDate = OmegaDate()): Boolean {
-        return !(minDate.after(currentDate)) && !(maxDate.before(currentDate))
+    fun isInRange(minDate: OmegaDate, maxDate: OmegaDate): Boolean {
+        return !(minDate.after(this)) && !(maxDate.before(this))
     }
 
     /**
@@ -543,9 +553,8 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @param currentDate OmegaDate
      * @return true if this OmegaDate is monday, else false
      */
-    @JvmOverloads
-    fun isStartOfWeek(currentDate: OmegaDate = OmegaDate()): Boolean {
-        return isDayOfWeek(currentDate, DaysOfWeek.MONDAY)
+    fun isStartOfWeek(): Boolean {
+        return isDayOfWeek(this, DaysOfWeek.MONDAY)
     }
 
     /**
@@ -554,19 +563,18 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @param currentDate OmegaDate
      * @return true if this OmegaDate is sunday, else false
      */
-    @JvmOverloads
-    fun isEndOfWeek(currentDate: OmegaDate = OmegaDate()): Boolean {
-        return isDayOfWeek(currentDate, DaysOfWeek.SUNDAY)
+    fun isEndOfWeek(): Boolean {
+        return isDayOfWeek(this, DaysOfWeek.SUNDAY)
     }
 
     /**
-     * @param currentDate OmegaDate
+     * @param date OmegaDate
      * @param possibleDay DaysOfWeek
      *
      * @return true if this OmegaDate is possibleDay, else false
      */
     @JvmOverloads
-    fun isDayOfWeek(currentDate: OmegaDate = OmegaDate(), possibleDay: DaysOfWeek): Boolean {
+    fun isDayOfWeek(date: OmegaDate = OmegaDate(), possibleDay: DaysOfWeek): Boolean {
         val dayOfWeek: DaysOfWeek
         when(possibleDay) {
             DaysOfWeek.SUNDAY -> { dayOfWeek = DaysOfWeek.SUNDAY }
@@ -577,7 +585,7 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
             DaysOfWeek.FRIDAY -> { dayOfWeek = DaysOfWeek.FRIDAY }
             DaysOfWeek.SATURDAY -> { dayOfWeek = DaysOfWeek.SATURDAY }
         }
-        return currentDate.CALENDAR.get(Calendar.DAY_OF_WEEK) == dayOfWeek.dayOfWeek
+        return date.CALENDAR.get(Calendar.DAY_OF_WEEK) == dayOfWeek.dayOfWeek
     }
 
     /**
@@ -586,12 +594,11 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @param currentDate OmegaDate
      * @return true if this OmegaDate is start of month, else false
      */
-    @JvmOverloads
-    fun isStartOfMonth(currentDate: OmegaDate = OmegaDate()): Boolean {
-        val date = clearTime(currentDate)
+    fun isStartOfMonth(): Boolean {
+        val date = clearTime(this)
         date.CALENDAR.set(Calendar.DAY_OF_MONTH, CALENDAR.getActualMinimum(Calendar.DAY_OF_MONTH))
 
-        return clearTime(currentDate).compareTo(date) == 0
+        return clearTime(this).compareTo(date) == 0
     }
 
     /**
@@ -600,22 +607,11 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @param currentDate OmegaDate
      * @return true if this OmegaDate is end of month, else false
      */
-    @JvmOverloads
-    fun isEndOfMonth(currentDate: OmegaDate = OmegaDate()): Boolean {
-        val date = clearTime(currentDate)
+    fun isEndOfMonth(): Boolean {
+        val date = clearTime(this)
         date.CALENDAR.set(Calendar.DAY_OF_MONTH, CALENDAR.getActualMaximum(Calendar.DAY_OF_MONTH))
 
-        return clearTime(currentDate).compareTo(date) == 0
-    }
-
-    /**
-     * Get difference between two dates in min
-     *
-     * @param compareDate OmegaDate
-     * @return Long difference
-     */
-    fun differenceBetweenDatesInMin(compareDate: OmegaDate = OmegaDate()): Long {
-        return TimeUnit.MILLISECONDS.toMinutes(differenceBetweenDatesInMillis(compareDate))
+        return clearTime(this).compareTo(date) == 0
     }
 
     /**
@@ -626,6 +622,16 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      */
     fun differenceBetweenDatesInSec(compareDate: OmegaDate = OmegaDate()): Long {
         return TimeUnit.MILLISECONDS.toSeconds(differenceBetweenDatesInMillis(compareDate))
+    }
+
+    /**
+     * Get difference between two dates in min
+     *
+     * @param compareDate OmegaDate
+     * @return Long difference
+     */
+    fun differenceBetweenDatesInMin(compareDate: OmegaDate = OmegaDate()): Long {
+        return TimeUnit.MILLISECONDS.toMinutes(differenceBetweenDatesInMillis(compareDate))
     }
 
     /**
