@@ -595,10 +595,7 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @return true if this OmegaDate is start of month, else false
      */
     fun isStartOfMonth(): Boolean {
-        val date = clearTime(this)
-        date.CALENDAR.set(Calendar.DAY_OF_MONTH, CALENDAR.getActualMinimum(Calendar.DAY_OF_MONTH))
-
-        return clearTime(this).compareTo(date) == 0
+        return CALENDAR.get(Calendar.DAY_OF_MONTH) == CALENDAR.getActualMinimum(Calendar.DAY_OF_MONTH)
     }
 
     /**
@@ -608,10 +605,7 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @return true if this OmegaDate is end of month, else false
      */
     fun isEndOfMonth(): Boolean {
-        val date = clearTime(this)
-        date.CALENDAR.set(Calendar.DAY_OF_MONTH, CALENDAR.getActualMaximum(Calendar.DAY_OF_MONTH))
-
-        return clearTime(this).compareTo(date) == 0
+        return CALENDAR.get(Calendar.DAY_OF_MONTH) == CALENDAR.getActualMaximum(Calendar.DAY_OF_MONTH)
     }
 
     /**
