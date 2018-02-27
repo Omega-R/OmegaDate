@@ -71,6 +71,14 @@ setYear(int hours);
 setDayOfWeek(int dayOfWeek);
 ```
 
+You could clear time of date. Set hourOfDay, min, second, milliseconds to 0.
+```
+clearTime();
+
+// If you don't want to clear time for current instance, but you need to compare with other date, you could use 
+clearTime(OmegaDate); // return new instance of Date, but with hourOfDay, min, second, milliseconds = 0.
+```
+
 Other interesting functions
 ```
 int getAges(OmegaDate currentDate); // return ages
