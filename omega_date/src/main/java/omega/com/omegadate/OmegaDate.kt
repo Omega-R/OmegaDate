@@ -554,7 +554,7 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @return true if this OmegaDate is monday, else false
      */
     fun isStartOfWeek(): Boolean {
-        return isDayOfWeek(this, DaysOfWeek.MONDAY)
+        return isDayOfWeek(this, DaysOfWeek.values()[CALENDAR.firstDayOfWeek])
     }
 
     /**
@@ -564,7 +564,9 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @return true if this OmegaDate is sunday, else false
      */
     fun isEndOfWeek(): Boolean {
-        return isDayOfWeek(this, DaysOfWeek.SUNDAY)
+        val daysOfWeek = DaysOfWeek.values()
+        val lastDayOfWeek = (CALENDAR.firstDayOfWeek + daysOfWeek.size - 1) % daysOfWeek.size
+        return isDayOfWeek(this, daysOfWeek[lastDayOfWeek])
     }
 
     /**
