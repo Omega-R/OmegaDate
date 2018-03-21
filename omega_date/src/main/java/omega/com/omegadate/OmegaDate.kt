@@ -27,6 +27,7 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
     }
 
     constructor(date: OmegaDate) : this(date.getDate())
+    constructor(date: Long) : this(Date(date))
     constructor(calendar: Calendar) : this(calendar.time)
     constructor() : this(Date())
 
@@ -43,6 +44,15 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * @return  returns the java.util.Date represented by this date.
      */
     fun getDate(): Date = CALENDAR.time
+
+    /**
+     * Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT
+     * represented by this OmegaDate object.
+     *
+     * @return  the number of milliseconds since January 1, 1970, 00:00:00 GMT
+     *          represented by this date.
+     */
+    fun getTime(): Long = getDate().time
 
     /**
      * Sets the date field parameters to the values given by {@code date}
