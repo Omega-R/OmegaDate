@@ -340,13 +340,19 @@ class OmegaDate(date : Date) : Serializable, Comparable<OmegaDate>, Cloneable {
      * Clear time of date
      * set hourOfDay, min, second, milliseconds to 0
      *
-     * @return  return this OmegaDate.
+     * @param newInstance Boolean
+     * @return  return new OmegaDate if newInstance is true, else return this OmegaDate.
      */
-    fun clearTime(): OmegaDate {
-        return setHoursOfDay(0)
-                .setMin(0)
-                .setSeconds(0)
-                .setMillis(0)
+    @JvmOverloads
+    fun clearTime(newInstance: Boolean = false): OmegaDate {
+        var date = this
+        if (newInstance) {
+            date = OmegaDate(this)
+        }
+        return date.setHoursOfDay(0)
+                   .setMin(0)
+                   .setSeconds(0)
+                   .setMillis(0)
     }
 
     /**
